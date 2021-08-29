@@ -4,6 +4,10 @@
  *	Project: JSDSL - Stream
  */
 
+import { AbstractIterable } from "@jsdsl/iterator";
+import { Streamable } from "./streamable";
+import { Stream } from "./stream";
+
 /**
  * An abstract implementation of the JSDSL {@link Stream} interface.
  * 
@@ -11,11 +15,11 @@
  * @version v0.1.0
  * @since v0.1.0
  */
-export abstract class AbstractStreamable {
+export abstract class AbstractStreamable<E> extends AbstractIterable<E> implements Streamable<E> {
 	
-	public constructor() {
+	public stream(): Stream<E> {
 		
-		
+		return new Stream<E>(this);
 		
 	}
 	

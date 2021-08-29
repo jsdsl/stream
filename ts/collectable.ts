@@ -4,7 +4,6 @@
  *	Project: stream
  */
 
-import { IContainer } from "@jsdsl/container";
 import { Stream } from "./stream";
 
 /**
@@ -14,8 +13,12 @@ import { Stream } from "./stream";
  * @version v0.1.0
  * @since v0.1.0
  */
-export interface StreamConstructable<T extends IContainer<E>, E> {
+export type Collectable<T, E> = {
 
 	new(stream: Stream<E>): T;
 
-}
+} | {
+
+	fromStream(stream: Stream<E>): T;
+
+};

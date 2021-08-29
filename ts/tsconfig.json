@@ -18,7 +18,7 @@
 		"sourceMap": true,
 		
 		// Prevents the compiler from compiling down .ts files that contain errors.
-		"noEmitOnError": true,
+		"noEmitOnError": false,
 		
 		// Generate type/declaration files.
 		"declaration": true,

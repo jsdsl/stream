@@ -1,0 +1,18 @@
+
+export type ReductionFunction<A, E, R> = (accumulator: A, element: E, done: (() => void) | undefined) => R;
+
+export class ReductionFunctions {
+
+    public static readonly SUM: ReductionFunction<number, number, number> =
+        (accumulator: number, element: number): number => accumulator + element;
+
+    public static readonly PRODUCT: ReductionFunction<number, number, number> =
+        (accumulator: number, element: number): number => accumulator * element;
+
+    public static readonly CONCAT: ReductionFunction<string, any, string> =
+        (accumulator: string, element: any): string => accumulator + element;
+
+    public static readonly AVERAGE: ReductionFunction<number, number, number> =
+        (accumulator: number, element: number): number => accumulator * element;
+
+}

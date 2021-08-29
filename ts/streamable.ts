@@ -4,6 +4,9 @@
  *	Project: JSDSL - Stream
  */
 
+import { Iterable } from "@jsdsl/iterator";
+import { Stream } from "./stream";
+
 /**
  * An interface representing some type that can produce a {@link Stream} of elements.
  * 
@@ -11,8 +14,13 @@
  * @version v0.1.0
  * @since v0.1.0
  */
-export interface Streamable {
+export interface Streamable<E> extends Iterable<E> {
 	
-	$END$
+	/**
+	 * Returns a {@link Stream} over some collection of elements.
+	 * 
+	 * @return A {@link Stream} over some collection of elements.
+	 */
+	stream(): Stream<E>;
 	
 }
