@@ -1,18 +1,19 @@
-# JavaScript Module Template
-This repository serves as an easy-start template for JavaScript/TypeScript NPM packages. 
+# JSDSL - Stream
+A series of consumable elements that can be filtered, mapped, reduced, etc. into other streams, or collected into
+various other data structures.
 
-Simply clone the repository into a directory:
+### [Find @jsdsl/stream on NPM.](https://www.npmjs.com/package/@jsdsl/stream)
 
-```bash
-$ git clone git@github.com:T99/js-module-template.git my-new-project
+## Installation
+Install from NPM with
+```
+$ npm install --save @jsdsl/stream
 ```
 
-And then run the init script:
+## Basic Usage
+Basic usage instructions here.
 
-```bash
-$ ./init.sh
-```
+## License
+@jsdsl/stream is made available under the GNU General Public License v3.
 
-The init script will interactively prompt you for package information and then automatically build the package, correct and fill-in package information, and install the specified NPM packages already included in the provided `package.json`.
-
-And that's it! Your project is ready to go.
+Copyright (C) 2021 Trevor Sears

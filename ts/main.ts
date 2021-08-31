@@ -1,13 +1,13 @@
 /*
- *	Created by Trevor Sears <trevorsears.main@gmail.com>.
+ *	Created by Trevor Sears <trevor@trevorsears.com>.
  *	10:53 PM -- June 11th, 2019.
- *	Project: <name>
+ *	Project: @jsdsl/stream
  */
 
 /**
  * NPM main class used for exporting this package's contents.
  *
- * @author Trevor Sears <trevorsears.main@gmail.com>
+ * @author Trevor Sears <trevor@trevorsears.com>
  * @version v0.1.0
  * @since v0.1.0
  */
