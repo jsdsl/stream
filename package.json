@@ -1,6 +1,6 @@
 {
 	"name": "@jsdsl/stream",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "A series of consumable elements that can be filtered, mapped, reduced, etc. into other streams, or collected into various other data structures.",
 	"main": "js/main",
 	"types": ".d.ts/main",
@@ -13,12 +13,15 @@
 		"url": "git+https://github.com/jsdsl/stream.git"
 	},
 	"keywords": [],
-	"author": "Trevor Sears <trevorsears.main@gmail.com> (http://trevorsears.io/)",
+	"author": "Trevor Sears <trevor@trevorsears.com> (https://trevorsears.com/)",
 	"license": "GPL-3.0-or-later",
 	"bugs": {
 		"url": "https://github.com/jsdsl/stream/issues"
 	},
 	"homepage": "https://github.com/jsdsl/stream#readme",
+	"dependencies": {
+		"@jsdsl/iterator": "^1.1.2"
+	},
 	"devDependencies": {
 		"typescript": "latest",
 		"tslint": "latest",
@@ -29,9 +32,5 @@
 		"gulp-typescript": "latest",
 		"gulp-uglify-es": "latest",
 		"jest": "latest"
-	},
-	"dependencies": {
-		"@jsdsl/container": "file:../container",
-		"@jsdsl/iterator": "^0.2.0"
 	}
 }

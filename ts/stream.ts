@@ -4,8 +4,8 @@
  *	Project: @jsdsl/stream
  */
 
-import { IContainer } from "@jsdsl/container";
-import { AbstractIterator, Iterable } from "@jsdsl/iterator";
+
+import { AbstractIterator } from "@jsdsl/iterator";
 import { Collectable } from "./collectable";
 import { StreamBuilder } from "./stream-builder";
 
@@ -17,13 +17,26 @@ import { StreamBuilder } from "./stream-builder";
  * @version v0.1.0
  * @since v0.1.0
  */
-export class Stream<E> extends AbstractIterator<E> implements IContainer<E> {
-
-	// DOC-ME [10/11/19 @ 1:08 PM] - Documentation required!
+export class Stream<E> extends AbstractIterator<E> {
+	
+	protected iterable: Iterable<E>;
+	
+	/**
+	 * Initializes a new Stream with the provided {@link Iterable}
+	 * @param {Iterable<E>} iterable
+	 */
 	public constructor(iterable: Iterable<E>) {
 
 		super();
+		
+		this.iterable = iterable;
 
+	}
+	
+	public static of<E>(...elements: E[]): Stream<E> {
+		
+		return new Stream<E>(elements);
+		
 	}
 
 	// DOC-ME [10/11/19 @ 1:08 PM] - Documentation required!
@@ -160,16 +173,17 @@ export class Stream<E> extends AbstractIterator<E> implements IContainer<E> {
 	 * @param {} reducer A function that is called for each elements of the Stream.
 	 * @return {U} A single value accumulated/calculated from an iteration over all of the elements in the Stream.
 	 */
-	public reduce<U>(reducer: (accumulator: U, element: E, done: (() => void)) => U, baseValue?: U): U {
+	public reduce<U>(reducer: (accumulator: U, element: E, index: number, done: (() => void)) => U, baseValue?: U): U | (U extends undefined ? undefined : U) {
 
-		let accumulation: U = baseValue ?? ;
+		let iterator: Iterator<E> = this.iterable[Symbol.iterator]();
+		let accumulation: U = baseValue ?? iterator.next().value;
 		let isDone: boolean = false;
 
 		function done(): void {
 			isDone = true;
 		}
 
-		for (let element of this) {
+		for (let element of iterator) {
 
 			accumulation = reducer(accumulation, element, done);
 
@@ -196,14 +210,104 @@ export class Stream<E> extends AbstractIterator<E> implements IContainer<E> {
 	 */
 	public contains(...elements: E[]): boolean {
 
-		return this.hasAny((element: E));
+		return this.hasAny((element: E): boolean => elements.includes(element));
 
+	}
+	
+	/**
+	 * Returns a Stream containing all of the elements of this stream, but with the first `n` elements removed.
+	 *
+	 * @param {number} amount
+	 * @returns {Stream<E>}
+	 */
+	public drop(amount: number): Stream<E> {
+		
+		// TODO [9/17/2021 @ 3:31 PM] Finish me!
+		return undefined as any;
+		
+	}
+	
+	/**
+	 *
+	 * @param {number} amount
+	 * @returns {Stream<E>}
+	 */
+	public take(amount: number): Stream<E> {
+		
+		// TODO [9/17/2021 @ 3:31 PM] Finish me!
+		return undefined as any;
+		
+	}
+	
+	public head(amount: number): Stream<E> {
+		
+		// TODO [9/17/2021 @ 3:31 PM] Finish me!
+		return undefined as any;
+		
+	}
+	
+	/**
+	 * Returns a new Stream containing the last `n` elements of this Stream.
+	 *
+	 * @param {number} amount The number of elements that should be carried over from the end of this Stream.
+	 * @returns {Stream<E>} A new Stream containing the last `n` elements of this Stream.
+	 */
+	public tail(amount: number): Stream<E> {
+		
+		// FIX-ME [9/17/2021 @ 4:56 PM] This function is not yet working :\
+		
+		let tailBuffer: E[] = [];
+		let tailBufferIndex: number = -1;
+		let elementCount: number = 0;
+		
+		for (let element of this) {
+			
+			elementCount++;
+			tailBuffer[tailBufferIndex = (tailBufferIndex + 1) % amount] = element;
+			
+		}
+		
+		let tailElements: E[] = [];
+		
+		tailBufferIndex = ((tailBufferIndex - 1) + amount) % amount;
+		
+		for (let i: number = 0; i < amount; i++) tailElements[i] = tailBuffer[(tailBufferIndex + i) % amount];
+		
+		return (new StreamBuilder(...tailElements)).build();
+		
+	}
+	
+	/**
+	 * Returns a new Stream containing all but the last `n` elements of this Stream.
+	 *
+	 * @param {number} amount The number of elements to exclude from the end of this Stream in the returned Stream.
+	 * @returns {Stream<E>} A new Stream containing all but the last `n` elements of this Stream.
+	 */
+	public dropTail(amount: number): Stream<E> {
+		
+		// TODO [9/17/2021 @ 3:31 PM] Finish me!
+		return undefined as any;
+		
 	}
 
 	// distinct
-	// head
-	// tail
-	//
+	
+	/**
+	 * Returns the first element of this Stream, or undefined
+	 *
+	 * @returns {E | undefined}
+	 */
+	public first(): E | undefined {
+		
+		return this.head(1).toArray()[0];
+		
+	}
+	
+	public last(): E | undefined {
+		
+		return this.tail(1).toArray()[0];
+		
+	}
 
 	/**
 	 * Returns the number of elements contained in this Stream.
@@ -212,7 +316,7 @@ export class Stream<E> extends AbstractIterator<E> implements IContainer<E> {
 	 */
 	public size(): number {
 
-		return this.reduce<number>(((accumulator: number) => accumulator + 1));
+		return this.reduce<number>(((accumulator: number): number => accumulator + 1));
 
 	}
 
@@ -223,7 +327,7 @@ export class Stream<E> extends AbstractIterator<E> implements IContainer<E> {
 	 */
 	public isEmpty(): boolean {
 
-		return this.hasNone(() => true);
+		return this.hasNone((): boolean => true);
 
 	}
 

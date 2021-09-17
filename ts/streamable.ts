@@ -4,7 +4,6 @@
  *	Project: JSDSL - Stream
  */
 
-import { Iterable } from "@jsdsl/iterator";
 import { Stream } from "./stream";
 
 /**
@@ -14,12 +13,12 @@ import { Stream } from "./stream";
  * @version v0.1.0
  * @since v0.1.0
  */
-export interface Streamable<E> extends Iterable<E> {
+export interface Streamable<E> {
 	
 	/**
 	 * Returns a {@link Stream} over some collection of elements.
 	 * 
-	 * @return A {@link Stream} over some collection of elements.
+	 * @return {Stream<E>} A {@link Stream} over some collection of elements.
 	 */
 	stream(): Stream<E>;
 	
